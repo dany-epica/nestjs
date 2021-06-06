@@ -1,4 +1,12 @@
-import { Column, Model, Table, AllowNull } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  AllowNull,
+  HasMany,
+  Unique,
+} from 'sequelize-typescript';
+import { Post } from 'src/posts/entities/post.entity';
 
 @Table
 export class User extends Model {
@@ -6,10 +14,12 @@ export class User extends Model {
   @Column
   fullName: string;
 
+  @Unique
   @AllowNull(false)
   @Column
   userName: string;
 
+  @Unique
   @AllowNull(false)
   @Column
   email: string;
@@ -17,4 +27,7 @@ export class User extends Model {
   @AllowNull(false)
   @Column
   password: string;
+
+  @HasMany(() => Post)
+  posts: Post[];
 }

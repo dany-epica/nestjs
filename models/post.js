@@ -4,7 +4,7 @@ const {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Post extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,17 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init(
+  Post.init(
     {
-      fullName: { type: DataTypes.STRING, allowNull: false },
-      userName: { type: DataTypes.STRING, allowNull: false, unique: true },
-      email: { type: DataTypes.STRING, allowNull: false, unique: true },
-      password: { type: DataTypes.STRING, allowNull: false },
+      title: DataTypes.STRING,
+      content: DataTypes.STRING,
+      status: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: 'Post',
     },
   );
-  return User;
+  return Post;
 };

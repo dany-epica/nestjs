@@ -20,9 +20,19 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
+    const payload = {
+      userID: user.dataValues.id,
+    };
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  userFromJwt(req: any): any {
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const res = <{ [key: string]: string | number }>(
+      this.jwtService.decode(token)
+    );
+    return this.usersService.findOne({ id: res.userID });
   }
 }

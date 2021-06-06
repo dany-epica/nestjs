@@ -1,4 +1,4 @@
-import { User } from '../user.entity';
+import { User } from '../entities/user.entity';
 
 /** User object with at least 'id' or 'userName' */
 export type PartialUser = Pick<User, 'id'> | Pick<User, 'userName'>;

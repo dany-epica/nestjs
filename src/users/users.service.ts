@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { IUser, PartialUser } from './interfaces/user.interface';
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -15,8 +15,8 @@ export class UsersService {
     });
   }
 
-  async createUser(user: IUser): Promise<User | undefined> {
-    return this.userModel.create(user);
+  async createUser(createUserDto: IUser): Promise<User | undefined> {
+    return this.userModel.create(createUserDto);
   }
 
   async remove(user: PartialUser): Promise<void> {
