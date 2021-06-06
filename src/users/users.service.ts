@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { IUser } from './interfaces/user.interface';
+import { IUser, PartialUser } from './interfaces/user.interface';
 import { User } from './user.entity';
 
 @Injectable()
@@ -9,11 +9,9 @@ export class UsersService {
     private userModel: typeof User,
   ) {}
 
-  findOne(id: string): Promise<User | undefined> {
+  findOne(user: PartialUser): Promise<User | undefined> {
     return this.userModel.findOne({
-      where: {
-        id,
-      },
+      where: user,
     });
   }
 
@@ -21,8 +19,8 @@ export class UsersService {
     return this.userModel.create(user);
   }
 
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await user.destroy();
+  async remove(user: PartialUser): Promise<void> {
+    const resUser = await this.findOne(user);
+    await resUser.destroy();
   }
 }
