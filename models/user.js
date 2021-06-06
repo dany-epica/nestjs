@@ -1,6 +1,7 @@
 'use strict';
 const {
-  Model
+  Model,
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -12,15 +13,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  User.init({
-    fullName: DataTypes.STRING,
-    userName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  }
+  User.init(
+    {
+      fullName: { type: DataTypes.STRING, allowNull: false },
+      userName: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING, allowNull: false },
+      password: { type: DataTypes.STRING, allowNull: false },
+    },
+    {
+      sequelize,
+      modelName: 'User',
+    },
+  );
   return User;
 };
